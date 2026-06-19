@@ -24,7 +24,7 @@ jobs:
     services: # key required to add service contaier to a job
       mongodb: #name/tag of servie
         image: mongo #required key
-        port: 
+        ports: 
           - 27017:27017 # exposing port from container for a runner machine
         env:
           MONGO_INITDB_ROOT_USERNAME: root
