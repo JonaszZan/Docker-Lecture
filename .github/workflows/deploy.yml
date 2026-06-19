@@ -9,6 +9,9 @@ env:
   MONGODB_DB_NAME: gha-demo
 jobs:
   test:
+    container: 
+      image: node:16 #adding image name available on public repo 
+     # env: env var needed  by image 
     environment: testing
     runs-on: ubuntu-latest
     env:
