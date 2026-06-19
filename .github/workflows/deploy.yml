@@ -9,20 +9,23 @@ env:
   MONGODB_DB_NAME: gha-demo
 jobs:
   test:
-    container: 
-      image: node:16 #adding image name available on public repo 
+    # container: 
+    #  image: node:16 #adding image name available on public repo 
      # env: env var needed  by image 
     environment: testing
     runs-on: ubuntu-latest
     env:
       MONGODB_CONNECTION_PROTOCOL: mongodb #mongodb+srv
-      MONGODB_CLUSTER_ADDRESS: mongodb #label of svr, it will only work when job is running in container
+       MONGODB_CLUSTER_ADDRESS: 127.0.0.1:27017 # as job is not running in a container we have to redirect traffic to localhost, with port use by the service
+     # MONGODB_CLUSTER_ADDRESS: mongodb #label of svr, it will only work when job is running in container
       MONGODB_USERNAME: root # ${{ secrets.MONGODB_USERNAME }}
       MONGODB_PASSWORD: example # ${{ secrets.MONGODB_PASSWORD }}
       PORT: 8080
     services: # key required to add service contaier to a job
       mongodb: #name/tag of servie
         image: mongo #required key
+        port: 
+          - 27017:27017 # exposing port from container for a runner machine
         env:
           MONGO_INITDB_ROOT_USERNAME: root
           MONGO_INITDB_ROOT_PASSWORD: example
